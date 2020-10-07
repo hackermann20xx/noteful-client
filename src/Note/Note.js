@@ -4,11 +4,26 @@ import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import Context from '../context'
-import context from '../context'
+
+function deleteNoteApi(id, callback) {
+  fetch(`http://localhost:9090/notes/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    },
+  }).then(response => {
+    if (response.ok) {
+      callback(id)
+    }
+
+  })
+}
 
 export default class Note extends React.Component {
 
-  static contextType = context;
+  static contextType = Context;
+
+
   render(){
 
   return (
@@ -18,7 +33,10 @@ export default class Note extends React.Component {
           {this.props.name}
         </Link>
       </h2>
-      <button className='Note__delete' type='button' onClick={()=>{this.context.deleteNote(this.props.id)}}>
+      <button className='Note__delete' 
+        type='button' 
+        onClick={()=>{deleteNoteApi(this.props.id, this.context.deleteNote)}}
+      >
         <FontAwesomeIcon icon='trash-alt' />
         {' '}
         remove

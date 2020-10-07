@@ -12,35 +12,10 @@ import './App.css';
 
 class App extends Component {
 
-    //delete a note
- deleteNote(id)
-{
-    fetch(`http://localhost:9090/notes/${id}`, {
-  method: 'DELETE',
-  headers: {
-    'content-type': 'application/json'
-  },
-}).then(response => {if(response.ok){
-    console.log(this);
-    this.setState({...this,
-        notes:this.notes.filter(note => note.id !== id)})
-
-}
-
-})
-}
-
-//delete a folder
- deleteFolder(id)
-{
-    fetch(`http://localhost:9090/folders/${id}`,{
-        method: 'DELETE',
-        headers: {
-
-            'content-type': 'application/json'
-        },
-    })
-}
+  deleteNote = id => {
+    const newNotes = this.state.notes.filter(note => note.id !== id);
+    this.setState({...this.state, notes: newNotes})
+  }
 
   fetchapi(url) {
     return fetch(url)
@@ -97,7 +72,7 @@ class App extends Component {
         ))}
         <Route
           path="/note/:noteId"
-          component={NotePageMain} 
+          component={NotePageMain}
         />
       </>
     );
@@ -106,7 +81,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Context.Provider value={{ ...this.state,deleteNote:this.deleteNote, deleteFolder:this.deleteFolder }}>
+        <Context.Provider value={{ ...this.state, deleteNote: this.deleteNote, deleteFolder: this.deleteFolder }}>
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
             <h1>
