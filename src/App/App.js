@@ -5,7 +5,7 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import { getNotesForFolder, findNote } from '../notes-helpers';
 import Context from '../context';
 import './App.css';
 
@@ -19,7 +19,6 @@ class App extends Component {
       })
   }
 
-
   state = {
     notes: [],
     folders: []
@@ -31,11 +30,9 @@ class App extends Component {
 
     this.fetchapi('http://localhost:9090/notes')
       .then(data => this.setState({ ...this.state, notes: data }))
-
   }
 
   renderNavRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -46,16 +43,7 @@ class App extends Component {
             component={NoteListNav}
           />
         ))}
-        <Route
-          path="/note/:noteId"
-          component = {NotePageNav}
-        //   render={routeProps => {
-        //     const { noteId } = routeProps.match.params;
-        //     const note = findNote(notes, noteId) || {};
-        //     const folder = findFolder(folders, note.folderId);
-        //     return <NotePageNav {...routeProps} folder={folder} />;
-        //   }}
-        />
+        <Route path="/note/:noteId" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
       </>
@@ -71,19 +59,7 @@ class App extends Component {
             exact
             key={path}
             path={path}
-            render={routeProps => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = getNotesForFolder(
-                notes,
-                folderId
-              );
-              return (
-                <NoteListMain
-                  {...routeProps}
-                  notes={notesForFolder}
-                />
-              );
-            }}
+            component={NoteListMain}
           />
         ))}
         <Route
@@ -101,7 +77,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Context.Provider value={{...this.state}}>
+        <Context.Provider value={{ ...this.state }}>
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
             <h1>
