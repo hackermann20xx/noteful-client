@@ -12,9 +12,18 @@ function deleteNoteApi(id, callback) {
       'content-type': 'application/json'
     },
   }).then(response => {
-    if (response.ok) {
-      callback(id)
+    if (!response.ok) {
+      return response.json().then(error => {
+        throw error
+      })
     }
+    return response.json()
+  })
+  .then(data =>{
+    callback(id)
+  })
+  .catch(error =>{
+    console.error(error)
   })
 }
 
