@@ -15,7 +15,6 @@ function deleteNoteApi(id, callback) {
     if (response.ok) {
       callback(id)
     }
-
   })
 }
 
@@ -23,9 +22,7 @@ export default class Note extends React.Component {
 
   static contextType = Context;
 
-
   render(){
-
   return (
     <div className='Note'>
       <h2 className='Note__title'>
