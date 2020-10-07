@@ -8,7 +8,7 @@ import {findNote} from '../notes-helpers'
 export default class NotePageMain extends React.Component {
 
   static contextType = Context;
-  
+
   render(){
 
     const { noteId } = this.props.match.params;
@@ -16,7 +16,11 @@ export default class NotePageMain extends React.Component {
     console.log(note);
     console.log(this.context.notes);
     console.log(noteId);
-
+    
+    if(!note){
+      return <p>Loading...</p>
+    }
+    
     return (
       <section className='NotePageMain'>
         <Note
