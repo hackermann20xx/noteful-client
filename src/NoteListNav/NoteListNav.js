@@ -9,7 +9,6 @@ import './NoteListNav.css'
 export default class NoteListNav extends React.Component {
   static contextType = Context;
 
-  
   render() {
     console.log(this.props);
     return (

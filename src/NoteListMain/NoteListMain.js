@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
 import Context from '../context';
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import { getNotesForFolder } from '../notes-helpers';
 
 import './NoteListMain.css'
 
