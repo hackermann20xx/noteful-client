@@ -10,12 +10,23 @@ import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import './App.css';
 
 class App extends Component {
+    fetchapi(url){
+    fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data))
+
+    }
+
+   
     state = {
         notes: [],
         folders: []
+
+
     };
 
     componentDidMount() {
+        this.fetchapi('http://localhost:9090/folders');
         // fake date loading from API call
         setTimeout(() => this.setState(dummyStore), 600);
     }
