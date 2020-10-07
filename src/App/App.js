@@ -6,6 +6,7 @@ import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import Context from '../context';
 import './App.css';
 
 class App extends Component {
@@ -42,13 +43,7 @@ class App extends Component {
             exact
             key={path}
             path={path}
-            render={routeProps => (
-              <NoteListNav
-                folders={folders}
-                notes={notes}
-                {...routeProps}
-              />
-            )}
+            component={NoteListNav}
           />
         ))}
         <Route
@@ -105,14 +100,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav className="App__nav">{this.renderNavRoutes()}</nav>
-        <header className="App__header">
-          <h1>
-            <Link to="/">Noteful</Link>{' '}
-            <FontAwesomeIcon icon="check-double" />
-          </h1>
-        </header>
-        <main className="App__main">{this.renderMainRoutes()}</main>
+        <Context.Provider value={{...this.state}}>
+          <nav className="App__nav">{this.renderNavRoutes()}</nav>
+          <header className="App__header">
+            <h1>
+              <Link to="/">Noteful</Link>{' '}
+              <FontAwesomeIcon icon="check-double" />
+            </h1>
+          </header>
+          <main className="App__main">{this.renderMainRoutes()}</main>
+        </Context.Provider>
       </div>
     );
   }
