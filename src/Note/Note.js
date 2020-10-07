@@ -19,44 +19,44 @@ function deleteNoteApi(id, callback) {
     }
     return response.json()
   })
-  .then(data =>{
-    callback(id)
-  })
-  .catch(error =>{
-    console.error(error)
-  })
+    .then(data => {
+      callback(id)
+    })
+    .catch(error => {
+      console.error(error)
+    })
 }
 
 export default class Note extends React.Component {
 
   static contextType = Context;
 
-  render(){
-  return (
-    <div className='Note'>
-      <h2 className='Note__title'>
-        <Link to={`/note/${this.props.id}`}>
-          {this.props.name}
-        </Link>
-      </h2>
-      <button className='Note__delete' 
-        type='button' 
-        onClick={()=>{deleteNoteApi(this.props.id, this.context.deleteNote)}}
-      >
-        <FontAwesomeIcon icon='trash-alt' />
-        {' '}
+  render() {
+    return (
+      <div className='Note'>
+        <h2 className='Note__title'>
+          <Link to={`/note/${this.props.id}`}>
+            {this.props.name}
+          </Link>
+        </h2>
+        <button className='Note__delete'
+          type='button'
+          onClick={() => { deleteNoteApi(this.props.id, this.context.deleteNote) }}
+        >
+          <FontAwesomeIcon icon='trash-alt' />
+          {' '}
         remove
       </button>
-      <div className='Note__dates'>
-        <div className='Note__dates-modified'>
-          Modified
+        <div className='Note__dates'>
+          <div className='Note__dates-modified'>
+            Modified
           {' '}
-          <span className='Date'>
-            {format(this.props.modified, 'Do MMM YYYY')}
-          </span>
+            <span className='Date'>
+              {format(this.props.modified, 'Do MMM YYYY')}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 }
