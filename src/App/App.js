@@ -5,7 +5,6 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
 import './App.css';
 
@@ -29,8 +28,8 @@ class App extends Component {
     this.fetchapi('http://localhost:9090/folders')
       .then(data => this.setState({ ...this.state, folders: data }))
 
-      this.fetchapi('http://localhost:9090/notes')
-    .then(data => this.setState({...this.state, notes: data}))
+    this.fetchapi('http://localhost:9090/notes')
+      .then(data => this.setState({ ...this.state, notes: data }))
 
   }
 
